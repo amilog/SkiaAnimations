@@ -1,12 +1,17 @@
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
 import Metrics from '../constants/metrics';
+import LinearGradient from 'react-native-linear-gradient';
 
 function LampAnimation() {
   return (
-    <View style={styles.view}>
+      <View style={styles.view}>
       <View style={styles.lampRectangular} />
       <View style={styles.lamp} />
+        <LinearGradient
+          colors={['rgba(255,255,0,0.4)', 'rgba(255,255,0,0.1)']}
+          style={styles.light}
+        />
       <View style={styles.trapezoid} />
       <View style={styles.lampRope} />
       <View style={styles.switchBackground} />
@@ -44,9 +49,15 @@ const styles = StyleSheet.create({
     width: Metrics.rem * 100,
     height: Metrics.rem * 100,
     borderRadius: Metrics.rem * 50,
-    backgroundColor: '#DDDDDD',
+    backgroundColor: 'rgba(255,255,0,1)',
     position: 'absolute',
     top: Metrics.rem * 290,
+  },
+  light: {
+    position: 'absolute',
+    top: Metrics.rem * 350,
+    width: Metrics.WIDTH,
+    height: Metrics.rem * 580,
   },
   lampRope: {
     width: Metrics.rem * 2,

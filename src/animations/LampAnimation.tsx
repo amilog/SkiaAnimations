@@ -5,13 +5,15 @@ import LinearGradient from 'react-native-linear-gradient';
 
 function LampAnimation() {
   return (
-      <View style={styles.view}>
+    <View style={styles.view}>
       <View style={styles.lampRectangular} />
       <View style={styles.lamp} />
-        <LinearGradient
-          colors={['rgba(255,255,0,0.4)', 'rgba(255,255,0,0.1)']}
-          style={styles.light}
-        />
+      <View style={styles.leftContainer} />
+      <LinearGradient
+        colors={['rgba(255,255,0,0.4)', 'rgba(255,255,0,0.1)']}
+        style={styles.light}
+      />
+      <View style={styles.rightContainer} />
       <View style={styles.trapezoid} />
       <View style={styles.lampRope} />
       <View style={styles.switchBackground} />
@@ -33,6 +35,7 @@ const styles = StyleSheet.create({
     height: Metrics.rem * 200,
     backgroundColor: 'black',
     position: 'absolute',
+    zIndex: 2,
   },
   trapezoid: {
     position: 'absolute',
@@ -44,6 +47,7 @@ const styles = StyleSheet.create({
     borderLeftColor: 'transparent',
     borderRightWidth: Metrics.rem * 60,
     borderRightColor: 'transparent',
+    zIndex: 2,
   },
   lamp: {
     width: Metrics.rem * 100,
@@ -58,6 +62,26 @@ const styles = StyleSheet.create({
     top: Metrics.rem * 350,
     width: Metrics.WIDTH,
     height: Metrics.rem * 580,
+  },
+  rightContainer: {
+    width: Metrics.rem * 500,
+    height: Metrics.rem * 300,
+    position: 'absolute',
+    top: Metrics.rem * 200,
+    right: Metrics.rem * -206,
+    backgroundColor: 'white',
+    zIndex: 1,
+    transform: [{skewY: '70deg'}],
+  },
+  leftContainer: {
+    width: Metrics.rem * 500,
+    height: Metrics.rem * 300,
+    position: 'absolute',
+    top: Metrics.rem * 200,
+    left: Metrics.rem * -206,
+    backgroundColor: 'white',
+    zIndex: 1,
+    transform: [{skewY: '-70deg'}],
   },
   lampRope: {
     width: Metrics.rem * 2,

@@ -1,12 +1,14 @@
 import {Text, View, StyleSheet} from 'react-native';
-import {ChasingTouchBubbles} from './src/Animations/ChasingTouchBubbles';
+import {ChasingTouchBubbles} from './src/animations/ChasingTouchBubbles';
+import LampAnimation from './src/animations/LampAnimation';
 
 const App = () => {
   return (
-    <View style={styles.container}>
-      <ChasingTouchBubbles />
-      <Text style={styles.text}>@CodeByAmil</Text>
-    </View>
+    <>
+      {/* <ChasingTouchBubbles />
+      <Text style={styles.text}>@CodeByAmil</Text> */}
+      <LampAnimation/>
+    </>
   );
 };
 
@@ -15,7 +17,6 @@ export default App;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'black',
   },
   text: {
     position: 'absolute',

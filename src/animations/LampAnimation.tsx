@@ -1,23 +1,25 @@
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
+import {Pressable, StyleSheet, View} from 'react-native';
 import Metrics from '../constants/metrics';
 import LinearGradient from 'react-native-linear-gradient';
 
 function LampAnimation() {
+  const handlePress = () => {
+    console.log('Pressed');
+  };
   return (
     <View style={styles.view}>
       <View style={styles.lampRectangular} />
       <View style={styles.lamp} />
       <View style={styles.leftContainer} />
-      {/* <LinearGradient
+      <LinearGradient
         colors={['rgba(255,255,0,0.4)', 'rgba(255,255,0,0.1)']}
         style={styles.light}
-      /> */}
+      />
       <View style={styles.rightContainer} />
       <View style={styles.trapezoid} />
       <View style={styles.lampRope} />
-  
-      <View style={styles.switch} />
+      <Pressable style={styles.switch} onPress={handlePress} />
     </View>
   );
 }

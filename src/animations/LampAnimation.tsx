@@ -9,14 +9,14 @@ function LampAnimation() {
       <View style={styles.lampRectangular} />
       <View style={styles.lamp} />
       <View style={styles.leftContainer} />
-      <LinearGradient
+      {/* <LinearGradient
         colors={['rgba(255,255,0,0.4)', 'rgba(255,255,0,0.1)']}
         style={styles.light}
-      />
+      /> */}
       <View style={styles.rightContainer} />
       <View style={styles.trapezoid} />
       <View style={styles.lampRope} />
-      <View style={styles.switchBackground} />
+  
       <View style={styles.switch} />
     </View>
   );
@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
     width: Metrics.rem * 100,
     height: Metrics.rem * 100,
     borderRadius: Metrics.rem * 50,
-    backgroundColor: 'rgba(255,255,0,1)',
+    backgroundColor: '#A2A2A2', //'rgba(255,255,0,1)'
     position: 'absolute',
     top: Metrics.rem * 290,
   },
@@ -92,15 +92,6 @@ const styles = StyleSheet.create({
     right: Metrics.rem * 150,
     borderRadius: Metrics.rem,
     zIndex: 1,
-  },
-  switchBackground: {
-    width: Metrics.rem * 30,
-    height: Metrics.rem * 65,
-    borderRadius: Metrics.rem * 30,
-    backgroundColor: '#DDDDDD',
-    position: 'absolute',
-    top: Metrics.rem * 445,
-    right: Metrics.rem * 136.5,
   },
   switch: {
     width: Metrics.rem * 30,

@@ -1,26 +1,46 @@
-import React, {useState} from 'react';
-import {Animated, Pressable, StyleSheet, View} from 'react-native';
+import React, { useRef } from 'react';
+import { Animated, StyleSheet, View } from 'react-native';
 import Metrics from '../constants/metrics';
 import LinearGradient from 'react-native-linear-gradient';
+import { PanGestureHandler, State } from 'react-native-gesture-handler';
 
 function LampAnimation() {
-  const [lampOn, setLampOn] = useState(false);
-  const [lampColor] = useState(new Animated.Value(0));
+  const lampOn = useRef(new Animated.Value(0)).current;
+  const ropeY = new Animated.Value(0);
 
-  const handlePress = () => {
-    console.log('Pressed');
-    setLampOn(!lampOn);
-
-    Animated.timing(lampColor, {
-      toValue: lampOn ? 0 : 1,
-      duration: 400,
-      useNativeDriver: false,
-    }).start();
-  };
-
-  const interpolatedColor = lampColor.interpolate({
+  const interpolatedColor = lampOn.interpolate({
     inputRange: [0, 1],
     outputRange: ['#A2A2A2', 'rgba(255,255,0,1)'],
+  });
+
+  const gestureHandler = Animated.event(
+    [
+      {
+        nativeEvent: {
+          translationY: ropeY,
+        },
+      },
+    ],
+    {
+      listener: event => {
+        if (event.nativeEvent.state === State.ACTIVE) {
+          lampOn.setValue(lampOn.__getValue() === 0 ? 1 : 0);
+          Animated.timing(lampOn, {
+            toValue: lampOn.__getValue(),
+            duration: 400,
+            useNativeDriver: false,
+          }).start();
+        }
+      },
+      useNativeDriver: false,
+    },
+  );
+
+
+  const clampedRopeY = ropeY.interpolate({
+    inputRange: [-30, 0, 30],
+    outputRange: [-30, 0, 30],
+    extrapolate: 'clamp',
   });
 
   return (
@@ -35,11 +55,11 @@ function LampAnimation() {
         style={[
           styles.light,
           {
-            opacity: lampColor,
+            opacity: lampOn,
             transform: [
               {
                 translateY: Animated.multiply(
-                  lampColor.interpolate({
+                  lampOn.interpolate({
                     inputRange: [0, 1],
                     outputRange: [Metrics.rem * 580, 0],
                   }),
@@ -56,8 +76,10 @@ function LampAnimation() {
       </Animated.View>
       <View style={styles.rightContainer} />
       <View style={styles.trapezoid} />
-      <View style={styles.lampRope} />
-      <Pressable style={styles.switch} onPress={handlePress} />
+      <Animated.View style={[styles.lampRope, {transform: [{translateY: clampedRopeY}]}]} />
+      <PanGestureHandler onGestureEvent={gestureHandler}>
+        <Animated.View style={[styles.switch, {transform: [{translateY: clampedRopeY}]}]} />
+      </PanGestureHandler>
     </View>
   );
 }
@@ -110,7 +132,7 @@ const styles = StyleSheet.create({
     right: Metrics.rem * -206,
     backgroundColor: 'white',
     zIndex: 1,
-    transform: [{skewY: '70deg'}],
+    transform: [{ skewY: '70deg' }],
   },
   leftContainer: {
     width: Metrics.rem * 500,
@@ -120,7 +142,7 @@ const styles = StyleSheet.create({
     left: Metrics.rem * -206,
     backgroundColor: 'white',
     zIndex: 1,
-    transform: [{skewY: '-70deg'}],
+    transform: [{ skewY: '-70deg' }],
   },
   whiteContainer: {
     width: Metrics.rem * 500,
